@@ -3,6 +3,7 @@
 *.user
 *.code-workspace
 *.7z
+*/build/*
 
 out.txt
 
