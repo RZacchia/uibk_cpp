@@ -32,9 +32,17 @@ constexpr int is_same_v = is_same<T, U>::value;
 
 template<class Tuple, class T>
 struct tuple_contains {
+template<class Tuple, class T>
+struct tuple_contains {
+	static_assert(false, "tuple_contains called on non-tuple");
+	
+	// If you see something like the line below, it is due to the fact that
+	// prior to 2023 ( https://cplusplus.github.io/CWG/issues/2518.html ),
+	// using static_assert(false, ...) would error out already at template definition time.
+	static_assert(sizeof(Tuple) == -1, "tuple_contains called on non-tuple");
 	// this condition is always false when we reach this case,
 	// but we need it to be *dependent*, which e.g. just "false" wouldn't be
-	static_assert(sizeof(Tuple) == -1, "tuple_contains called on non-tuple");
+};
 };
 
 template<class T>
